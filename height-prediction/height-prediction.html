@@ -243,15 +243,21 @@ function updateCharts(height, weight, gender, totalMonths) {
     const heightData = (gender === 'male') ? maleHeightData : femaleHeightData;
     const weightData = (gender === 'male') ? maleWeightData : femaleWeightData;
     
-    for (let targetAgeYears = 2; targetAgeYears <= 20; targetAgeYears++) {
-        const targetAgeMonths = targetAgeYears * 12;
-        labels.push(`Age ${targetAgeYears}`);
+for (let targetAgeYears = 2; targetAgeYears <= 19; targetAgeYears++) {
+    for (let additionalMonths = 0; additionalMonths <= 6; additionalMonths += 6) {
+        const targetAgeMonths = targetAgeYears * 12 + additionalMonths;
+        labels.push(`${targetAgeYears}'${additionalMonths}`);
         const heightAtTarget = calculate(totalMonths, height, heightData, targetAgeMonths, 'height');
         heightChart.push(heightAtTarget.toFixed(2));
         const weightAtTarget = calculate(totalMonths, weight, weightData, targetAgeMonths, 'weight');
         weightChart.push(weightAtTarget.toFixed(2));
     }
-    
+}
+
+
+
+
+
     generateChart(heightChart, labels, 'Height (cm)', 'heightChart');
     generateChart(weightChart, labels, 'Weight (kg)', 'weightChart');
 }
